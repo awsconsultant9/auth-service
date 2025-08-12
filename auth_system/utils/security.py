@@ -1,5 +1,5 @@
 from passlib.context import CryptContext
-from jose import jwt
+from jose import jwt, JWTError
 from datetime import datetime, timedelta
 
 
@@ -21,3 +21,11 @@ def create_access_token(payload:dict):
     payload.update({"exp":expire})
     access_token = jwt.encode(payload,SECRET_KEY,algorithm=ALGORITHM)
     return access_token
+
+
+def verify_token_extract_claims(token:str):
+    try:
+        decode = jwt.decode(token,SECRET_KEY,algorithms=[ALGORITHM])
+    except JWTError as e:
+        raise e
+    return decode["claims"]

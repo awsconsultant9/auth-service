@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from auth_system.db import database
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from auth_system.utils.security import create_access_token
+from auth_system.utils.security import create_access_token, verify_token_extract_claims
 
 async def registration(userinfo:UserRegistration, db:AsyncSession):
     return await database.registration(userinfo,db)
